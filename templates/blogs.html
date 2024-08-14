@@ -1,35 +1,37 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-
 <!-- Page content-->
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-8">
             <!-- Post content-->
-            <article>
+            <article class="animate-on-scroll" data-aos="fade-up">
                 <!-- Post header-->
-                <header class="mb-4">
+                <header class="mb-4" data-aos="fade-down">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{{ single_blog.title}}</h1>
+                    <h1 class="fw-bolder mb-1">{{ single_blog.title }}</h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on {{ single_blog.created_at}} by {{single_blog.author}}</div>
+                    <div class="text-muted fst-italic mb-2">Posted on {{ single_blog.created_at }} by {{ single_blog.author }}</div>
                     <!-- Post category-->
-                    <a class="badge bg-warning text-decoration-none text-light" href="#!">{{single_blog.category}}</a>
+                    <a class="badge bg-warning text-decoration-none text-light" href="#!">{{ single_blog.category }}</a>
                 </header>
                 <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="{{ single_blog.featured_image.url}}" alt="image of the relevent post" /></figure>
+                <figure class="mb-4" data-aos="zoom-in"><img class="img-fluid rounded" src="{{ single_blog.featured_image.url }}" alt="image of the relevant post" /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                    </section>
+                    <h2 class="custom-heading" data-aos="fade-right">Short Description</h2>
+                    <p class="fs-5 mb-4 custom-paragraph" data-aos="fade-left">{{ single_blog.short_description }}</p>
+                    <h2 class="custom-heading" data-aos="fade-right">Description</h2>
+                    <p class="fs-5 mb-4 custom-paragraph" data-aos="fade-left">{{ single_blog.blog_body }}</p>
+                </section>
             </article>
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
             <!-- Search widget-->
-            <div class="card mb-4">
+            <div class="card mb-4" data-aos="slide-right">
                 <div class="card-header">Search</div>
                 <div class="card-body">
                     <div class="input-group">
@@ -39,29 +41,22 @@
                 </div>
             </div>
             <!-- Categories widget-->
-            <div class="card mb-4 p-3">
+            <div class="card mb-4 p-3" data-aos="slide-right" data-aos-delay="100">
                 <h4 class="font-italic">Categories</h4>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
+                                {% for i in categories %}
+                                <li><a href="{% url 'post_by_category' i.id %}">{{i.category_name}}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Side widget-->
-            <div class="card mb-4 p-3">
+            <div class="card mb-4 p-3" data-aos="slide-right" data-aos-delay="200">
                 <h4 class="font-italic">Follow Us</h4>
                 <ol class="list-unstyled">
                     <li><a href="#">GitHub</a></li>
@@ -72,4 +67,61 @@
     </div>
 </div>
 
+<style>
+    .custom-heading {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        color: #333;
+        border-bottom: 2px solid #f0ad4e;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+    
+    .custom-paragraph {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #555;
+        transition: all 0.3s ease-in-out;
+        padding: 10px;
+        border-left: 5px solid #f0ad4e;
+        background-color: #fdfdfd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .custom-paragraph:hover {
+        color: #333;
+        background-color: #f9f9f9;
+        border-left: 5px solid #ffb84d;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.scroll-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        AOS.init({
+            duration: 1200,
+            once: true,
+        });
+    });
+</script>
 {% endblock %}

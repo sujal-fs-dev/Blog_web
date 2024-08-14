@@ -1,5 +1,4 @@
 <!--header part-->
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,73 +10,94 @@
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <!-- Add this to your base.html -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <style>
-      .blog-header-logo {
-        display: flex;
-        align-items: center; /* Centers items vertically */
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Custom font */
-        color: #333; /* Darker text color */
-    }
-    
-    .blog-header-logo img {
-        border-radius: 50%; /* Makes the logo circular */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-    }
-    
-    .blog-header-logo span {
-        font-size: 1.500rem; /* Adjust the size as needed */
-        margin-left: 10px; /* Adjust the spacing as needed */
-        color: #2c3e50; /* Slightly different text color for contrast */
-        font-weight: bold; /* Makes the text bold */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Adds a subtle text shadow */
-    }
-    
-  </style>
-    
-    
+        .blog-header-logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .blog-header-logo img {
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .blog-header-logo span {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .form-inline {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .form-inline input {
+            width: 250px;
+        }
+        .btn-custom {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-8 pt-1">
-            <a class="blog-header-logo text-dark" href="/">
-              <img src="{% static 'images/final.png' %}" alt="Campus-Connect Logo" style="height: 90px;">
-              <span class="ml-2 font-weight: 1.232rem">"The Place Where Students Thrive"</span>
-              
-            </a>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-warning" href="#">Login</a> &nbsp;
-            <a class="btn btn-sm btn-outline-secondary" href="#">Register</a>
-          </div>
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-6 pt-1">
+                    <a class="blog-header-logo text-dark" href="/">
+                        <img src="{% static 'images/final.png' %}" alt="Campus-Connect Logo" style="height: 90px;">
+                        <span>"The Place Where Students Thrive"</span>
+                    </a>
+                </div>
+                <div class="col-6 header-right">
+                    <form method="GET" action="{% url 'search'%}" class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" value="{{keyword}}""  placeholder="Search" aria-label="Search" name="keyword">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    {% if not user.is_authenticated %}
+                    <a class="btn btn-sm btn-warning btn-custom" href="{% url 'login'%}">Login</a>
+                    <a class="btn btn-sm btn-outline-secondary btn-custom" href="{% url 'register' %}">Register</a>
+                    {% else %}
+                      <span>Welcome {{user.username}}</span>
+                      &emsp;
+
+                    <span> <a class="btn btn-sm btn-outline-secondary btn-custom" href="{% url 'logout' %}">logout</a></span>
+
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav d-flex justify-content-between">
+                {% for i in categories %}
+                <a class="p-2 text-muted" href="{% url 'post_by_category' i.id %}">{{ i.category_name }}</a>
+                {% endfor %}
+            </nav>
         </div>
-      </header>
 
-      <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-          {% for i in categories %}
-          <a class="p-2 text-muted" href="{% url 'post_by_category' i.id %}">{{ i.category_name }}</a>
-          {% endfor %}
-        </nav>
-      </div>
+        <!--main content part-->
+        {% block content %}
+        {% endblock %}
 
-
-
-<!--main content part-->
-{% block content %}
-
-
-{% endblock %}
-
-
-
-
-<!--footer part-->
-
-</div>
-<footer class="blog-footer">
-  <p>Campus-Connect is code by <a href="#">Sujal vyas</a></p>
-</footer>
+        <!--footer part-->
+    </div>
+    <footer class="blog-footer">
+        <p>Campus-Connect is coded by <a href="{% url 'about_us' %}">Sujal Vyas</a></p>
+    </footer>
 </body>
 </html>

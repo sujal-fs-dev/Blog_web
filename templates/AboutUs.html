@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Header Section -->
+    <header class="text-center mb-5" data-aos="fade-up">
+        <h1 class="display-4 font-weight-bold text-primary">About Me</h1>
+        <p class="lead text-muted">Discover more about my journey, skills, and passions.</p>
+    </header>
+
+    <!-- Personal Information Section -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4" data-aos="fade-right">
+            <div class="card border-0 shadow-lg rounded-lg hover-effect">
+                <img src="{% static 'images/2.jpeg' %}" class="card-img-top rounded-top" alt="My Photo">
+                <div class="card-body">
+                    <h4 class="card-title">Sujal Vyas</h4>
+                    <p class="card-text">A passionate developer and IT student at Victoria University, dedicated to crafting innovative solutions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 mb-4" data-aos="fade-left">
+            <div class="card border-0 shadow-lg rounded-lg hover-effect">
+                <div class="card-body">
+                    <h4 class="card-title">My Journey</h4>
+                    <p class="card-text">With a background in IT and a drive for technology, I have developed a variety of projects, from web applications to student management systems. My academic and professional experiences have equipped me with a deep understanding of technology and problem-solving skills.</p>
+                    <h4 class="card-title mt-4">Skills</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-laptop-code"></i> Web Development</li>
+                        <li><i class="fas fa-python"></i> Django & Python</li>
+                        <li><i class="fas fa-paint-brush"></i> UI/UX Design</li>
+                        <li><i class="fas fa-project-diagram"></i> Project Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Passion Section -->
+    <div class="text-center mb-5" data-aos="zoom-in-up">
+        <h2 class="font-weight-bold text-primary">My Passion</h2>
+        <p class="lead text-muted">I am passionate about creating technology that enhances user experience and solving real-world problems. My goal is to continue learning and growing in the tech industry while contributing to impactful projects.</p>
+    </div>
+
+    <!-- Portfolio Link Section -->
+    <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="font-weight-bold text-primary">Explore My Portfolio</h2>
+        <p class="lead text-muted">Check out my work and projects on my Wix portfolio.</p>
+        <a href="https://sujalvyas662.wixsite.com/my-site-10" class="btn btn-primary btn-lg hover-effect" target="_blank">View My Portfolio</a>
+    </div>
+</div>
+
+<style>
+    .card-img-top {
+        height: 400px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 2px solid #007bff; /* Adds a bottom border */
+        transition: transform 0.3s ease;
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.05);
+    }
+
+    .card-body {
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        color: #555;
+        font-size: 1rem;
+    }
+
+    h1, h2 {
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .lead {
+        font-size: 1.125rem;
+        color: #666;
+    }
+
+    .rounded-lg {
+        border-radius: 1rem;
+    }
+
+    .list-unstyled li {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .list-unstyled li i {
+        color: #007bff;
+        margin-right: 0.5rem;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.25rem;
+        font-size: 1.25rem;
+        border-radius: 0.3rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-lg:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .hover-effect {
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .hover-effect:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        AOS.init({
+            duration: 1000, // Animation duration in milliseconds
+            once: true,     // Whether animation should happen only once
+        });
+    });
+</script>
+{% endblock %}
